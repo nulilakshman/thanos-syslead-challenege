@@ -6,10 +6,9 @@ import {
 export const actions = {
     validateUser: (user, history) => dispatch => {
         if (user.userName === 'admin@thanos.com' && user.password === 'admin@123') {
-            debugger
-            const details = { ...user, isAuthenticated: true }
+            const details = { ...user, isAuthenticated: true, role: 1 }
             localStorage.setItem("AUTH_USER", JSON.stringify(details))
-             dispatch({ type: LOGIN_SUCCESS, details });
+            dispatch({ type: LOGIN_SUCCESS, details });
             history.push('/add-organizations');
             return;
         }

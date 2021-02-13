@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import {
-    Button,
     Row,
     Col,
     Form,
@@ -13,14 +12,17 @@ import {
     CardSubtitle,
     Input
 } from "reactstrap"
-import { Link, withRouter, useHistory } from "react-router-dom";
-import InputMask from "react-input-mask"
-import * as Utility from '../Common/Util';
-import { actions } from '../store/organizations/actions'
+import { Link, withRouter, useHistory, useParams } from "react-router-dom";
+import { actions } from '../store/users/actions'
 import { connect } from "react-redux"
 
-const ManageOrganizations = ({ details }) => {
+const ManageUsers = ({ details, getAllUsers }) => {
     console.log(details)
+    const { organizationId } = useParams();
+    //const [users, setUsers] = useState([])
+    useEffect(() => {
+        getAllUsers(organizationId)
+    }, [])
 
     return (
         <div className="page-content">
@@ -28,8 +30,11 @@ const ManageOrganizations = ({ details }) => {
                 <Row className="row justify-content-end">
                     <Col lg="12">
                         <div className="button-items row justify-content-end">
-                            <Link to="/add-organizations" className="btn btn-success mr-3 mb-4">
-                                <i className="bx bx-arrow-back"></i> Add Organizations
+                        <Link to="/manage-organizations" className="btn btn-info mr-3 mb-4">
+                                <i className="bx bx-arrow-back"></i> Back to Organizations
+                            </Link>
+                            <Link  to={`/add-user/${organizationId}`} className="btn btn-success mr-3 mb-4">
+                                <i className="bx bx-arrow-back"></i> Add User
                             </Link>
                         </div>
                     </Col>
@@ -40,39 +45,30 @@ const ManageOrganizations = ({ details }) => {
                             <thead className="thead-dark">
                                 <tr>
                                     <th>Name</th>
-                                    <th>Address</th>
+                                    <th>User Name</th>
                                     <th>Email</th>
-                                    <th>Phone Number</th>
-                                    <th>Website</th>
+                                    <th>Role</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {details.allOrganizations.map((element, idx) =>
+                                {details.allUsers && details.allUsers.map((element, idx) =>
                                     <tr key={idx}>
                                         <td>
-                                            {element.organizationName}
+                                            {element.name}
                                         </td>
                                         <td>
-                                            {element.addressLine1}
+                                            {element.userName}
                                         </td>
                                         <td>
-                                            {element.emailAddress}
+                                            {element.email}
                                         </td>
                                         <td>
-                                            {element.phoneNumber}
+                                            {element.roleId}
                                         </td>
                                         <td>
-                                            {element.websiteUrl}
+                                            Edit / Delete
                                         </td>
-                                        <td>
-
-                                            Edit
-                                            /  <Link to={`/manage-users/${element.id}`}  >
-                                                Manage Users
-                                            </Link>
-                                        </td>
-
                                     </tr>
                                 )}
                             </tbody>
@@ -86,12 +82,10 @@ const ManageOrganizations = ({ details }) => {
         </div>
     )
 }
-//export default AddOrganization
-
 export default connect(
 
     state => ({
-        details: state.organizationDetails
+        details: state.userDetails
     }),
     actions
-)(withRouter(ManageOrganizations))
+)(withRouter(ManageUsers))

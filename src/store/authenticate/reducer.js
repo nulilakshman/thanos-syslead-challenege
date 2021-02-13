@@ -22,7 +22,6 @@ const login = (state = initialState, action) => {
             }
             break
         case LOGIN_SUCCESS:
-            debugger
             state = {
                 ...state,
                 loggedInUser: { ...action.details },
@@ -30,7 +29,6 @@ const login = (state = initialState, action) => {
             }
             break
         case LOGIN_ERROR:
-            debugger
             state = {
                 ...state,
                 loggedInUser: null,

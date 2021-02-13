@@ -16,7 +16,6 @@ const organizationDetails = (state = INIT_STATE, action) => {
                 ...state
             }
         case SET_ORGANIZATION_DETAILS:
-            debugger
             return {
                 ...state,
                 allOrganizations: action.allOrgs,

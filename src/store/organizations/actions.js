@@ -6,11 +6,12 @@ import {
 export const actions = {
     addOrganization: (organization) => dispatch => {
 
-        const details = { ...organization }
+        const details = { ...organization, id: 0 }
 
         const allOrganizations = localStorage.getItem("ORGANIZATIONS") ? JSON.parse(localStorage.getItem("ORGANIZATIONS")) : [];
-
-        const orgs = [...allOrganizations, organization]
+        details.id = allOrganizations.length + 1;
+        
+        const orgs = [...allOrganizations, details]
         localStorage.setItem("ORGANIZATIONS", JSON.stringify(orgs))
         dispatch({ type: SET_ORGANIZATION_DETAILS, allOrgs: orgs });
         alert('Organization added successfully !!!')
