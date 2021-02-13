@@ -26,7 +26,12 @@ export const actions = {
                 const details = { ...loggedInUser[0], isAuthenticated: true }
                 localStorage.setItem("AUTH_USER", JSON.stringify(details))
                 dispatch({ type: LOGIN_SUCCESS, details: details });
-                history.push(`/manage-users/${details.organizationId}`);
+                if (details.roleId === 'User') {
+                    history.push(`/userhome`);
+                }
+                else {
+                    history.push(`/manage-users/${details.organizationId}`);
+                }
                 return;
             }
 

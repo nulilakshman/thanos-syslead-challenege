@@ -7,7 +7,7 @@ import Authmiddleware from "./routes/middleware/Authmiddleware"
 import AuthenticatedLayout from './components/authenticatedLayout'
 import AnonymousLayout from './components/anonymousLayout'
 const App = ({ login })  => {
-  console.log(login)
+  
 
   return (
     <React.Fragment>
@@ -22,6 +22,7 @@ const App = ({ login })  => {
                   component={route.component}
                   key={idx}
                   isAuthProtected={true}
+                  roles={route.roles}
                   exact
                 />
               ))}
@@ -34,6 +35,7 @@ const App = ({ login })  => {
                   component={route.component}
                   key={idx}
                   isAuthProtected={false}
+                  roles={[]}
                 />
               ))}
 
