@@ -16,8 +16,9 @@ import { Link, withRouter, useHistory, useParams } from "react-router-dom";
 import { actions } from '../store/users/actions'
 import { connect } from "react-redux"
 
-const ManageUsers = ({ details, getAllUsers }) => {
+const ManageUsers = ({ details, login, getAllUsers }) => {
     console.log(details)
+    console.log(login.loggedInUser)
     const { organizationId } = useParams();
     //const [users, setUsers] = useState([])
     useEffect(() => {
@@ -30,11 +31,16 @@ const ManageUsers = ({ details, getAllUsers }) => {
                 <Row className="row justify-content-end">
                     <Col lg="12">
                         <div className="button-items row justify-content-end">
-                        <Link to="/manage-organizations" className="btn btn-info mr-3 mb-4">
-                                <i className="bx bx-arrow-back"></i> Back to Organizations
-                            </Link>
-                            <Link  to={`/add-user/${organizationId}`} className="btn btn-success mr-3 mb-4">
-                                <i className="bx bx-arrow-back"></i> Add User
+                            {
+                                login.loggedInUser !== null && login.loggedInUser.roleId === 'admin' ?
+                                    (<Link to="/manage-organizations" className="btn btn-info mr-3 mb-4">
+                                        Back to Organizations
+                                    </Link>)
+                                    : null
+                            }
+
+                            <Link to={`/add-user/${organizationId}`} className="btn btn-success mr-3 mb-4">
+                                Add User
                             </Link>
                         </div>
                     </Col>
@@ -85,7 +91,8 @@ const ManageUsers = ({ details, getAllUsers }) => {
 export default connect(
 
     state => ({
-        details: state.userDetails
+        details: state.userDetails,
+        login: state.login
     }),
     actions
 )(withRouter(ManageUsers))
