@@ -24,7 +24,7 @@ const Login = ({ login, validateUser }) => {
     
     const history = useHistory();
     if (login.loggedInUser !== null) {
-        history.push('/add-organizations');
+        history.push('/manage-organizations');
     }
    
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -36,13 +36,7 @@ const Login = ({ login, validateUser }) => {
         const { name, value } = e.target
         setLoginDetails({ ...loginDetails, [name]: value })
     }
-    // handleValidSubmit
-    const handleValidSubmit = (event, values) => {
-
-        //  props.loginUser(values, props.history)
-    }
-
-
+   
     const isDataValid = () => {
         let errorCount = 0;
         if (Utility.isNullOrEmptyOrUndefined(loginDetails.userName)) {

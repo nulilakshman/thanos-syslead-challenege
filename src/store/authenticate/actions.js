@@ -9,7 +9,7 @@ export const actions = {
             const details = { ...user, isAuthenticated: true, role: 1 }
             localStorage.setItem("AUTH_USER", JSON.stringify(details))
             dispatch({ type: LOGIN_SUCCESS, details });
-            history.push('/add-organizations');
+            history.push('/manage-organizations');
             return;
         }
         const details = { ...user, isAuthenticated: false }
